@@ -1,6 +1,8 @@
 # DataMigrator
 DataMigrator is an agile and effective Python based, user friendly opensource migration tool that can be used to build ‘data migration pipeline’. It essentially connects and understands a set of sources and syncs and helps quickly build a smooth migration pipeline with small number of iterations.
 
+![Image description](https://github.com/yusuf287/DataMigrator/blob/master/DataMigratorAPI_Architecture.png)
+https://github.com/yusuf287/DataMigrator/blob/master/DataMigratorAPI_Architecture.png
 •	Currently, this tool supports 5 Data Source types which means user can migrate data from all these 5 different source types to any of the 5 types he/she wants.
 •	This tool won’t be needing much coding experience from its user.
 •	This tool can transform in stand-alone or distributed mode. We have SPARK-ified our tool which gives it ability to migrate data from big data ecosystem also in a distributed way. 
