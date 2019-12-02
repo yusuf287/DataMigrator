@@ -1,0 +1,204 @@
+<!-- 
+Authors: 1. Sarthak Agarwal
+         2. Aryan Kuntal
+ -->
+
+<!doctype html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+        <title>Data Migrator</title>
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-sm-12">
+                    <h4>Data Migrator</h4>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-12">
+
+                    <div class="row">
+                        <h5>Select as per requirement!</h5>
+                    </div>
+
+                        
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p>Please select input data source type:</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <select name="input_type" id="input_type">
+                    
+                                    <option value="csv">csv</option>
+                                    <option value="json">json</option>
+                                    <option value="pickle">pickle</option>
+                                    <option value="parquet">parquet</option>
+                                    <option value="excel">excel</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <form method="POST" action="/upload_files" enctype="multipart/form-data">
+                                
+                                <dl>
+                                    <p>
+                                        <input type="file" name="files" multiple="true" autocomplete="off" required>
+                                    </p>
+                                </dl>
+                            </form>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p>Please select output data source type::</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <select name="output_type" id="output_type">
+                    
+                                    <option value="csv">csv</option>
+                                    <option value="json">json</option>
+                                    <option value="pickle">pickle</option>
+                                    <option value="parquet">parquet</option>
+                                    <option value="excel">excel</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <form method="POST" action="/upload_files" enctype="multipart/form-data">
+                                
+                                <dl>
+                                    <p>
+                                        <input type="file" name="files" multiple="true" autocomplete="off" required>
+                                    </p>
+                                </dl>
+
+                                
+                            </form>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p>Distribute:</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <select name="distribute" id="distribute">
+                                    <option value="True">True</option>
+                                    <option value="False">False</option>
+                                </select>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary" id="migration_submit">Submit</button>
+                </div>
+            </div>
+
+            
+
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>Output:</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="placement_cost_result"></tbody>
+                            
+                    </table>
+                </div>
+            </div>
+
+            
+
+
+        </div>
+        
+    </body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//cdn.rawgit.com/dcodeIO/protobuf.js/6.8.8/dist/protobuf.min.js"></script>
+    <script type="text/javascript">
+
+        $(function() {
+
+            var data_migrator_ui_params = JSON.parse('{{ data_migrator_ui_params | tojson | safe}}')
+
+            // console.log(data_migrator_ui_params)
+
+            $('#migration_submit').click(function() {
+
+                var all_input_ids = Object.keys(data_migrator_ui_params["drop_downs"])
+                                 
+                var data = {}
+                for (var id in all_input_ids) {
+                    data[all_input_ids[id]] = $('#'+all_input_ids[id]).val()
+                }
+                
+                $.ajax({
+                    url: '/v1.1/data_migrator/process',
+                    data: JSON.stringify(data, null, '\t'),
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function(response) {
+                        console.log(response)
+
+                        $("#placement_cost_result").html("")
+
+                        for (var key in response) {
+
+                            $("#placement_cost_result").append(
+                                `<tr>
+                                <td>${key}</td>
+                                <td>${response[key]}</td>
+                                </tr>`
+                            )
+                        }
+                    },
+
+                    error: function(error) {
+                        console.log("failure");
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
+    </script>
+</html>
+

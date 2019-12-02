@@ -1,0 +1,8 @@
+{
+    "path":"/Users/yusuf.siddiqui/Jio/Competitions/PysparkChallenge/refinary/services/data_migrator/src/Data/output/",
+    "file_name":"output_data.xlsx",
+    "sheet_name":"test_sheet",
+    "index":"False",
+    "header":"True",
+    "encoding":"utf-8"
+}

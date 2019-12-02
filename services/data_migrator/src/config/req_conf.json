@@ -1,0 +1,7 @@
+{
+    "input_type":"csv",
+    "input_conf_path":"/Users/yusuf.siddiqui/Jio/Competitions/PysparkChallenge/refinary/services/data_migrator/src/config/Input/input_csv.json",
+    "output_conf_path":"/Users/yusuf.siddiqui/Jio/Competitions/PysparkChallenge/refinary/services/data_migrator/src/config/Output/output_parquet.json",
+    "output_type":"parquet",
+    "distribute": "False"
+}

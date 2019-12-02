@@ -1,0 +1,13 @@
+{
+ "path":"/Users/yusuf.siddiqui/Jio/Competitions/PysparkChallenge/refinary/services/data_migrator/src/Data/input/input_data.csv",
+ "header":"infer",
+ "encoding":"utf-8",
+ "sep":",",
+ "nrows":1000, 
+ "prefix":"C",
+ "engine":"python",
+ "distributed_header":"True", 
+ "inferSchema":"True", 
+ "mode":"DROPMALFORMED"
+    
+}

@@ -1,0 +1,31 @@
+{
+	"drop_downs": {
+		"input_type": {
+			"display_name": "Please select input data source type:",
+			"options": [
+				"csv",
+				"json",
+				"parquet",
+				"pickle",
+				"excel"
+			]
+		},
+		"output_type": {
+			"display_name": "Please select output data source type:",
+			"options": [
+				"csv",
+				"json",
+				"parquet",
+				"pickle",
+				"excel"
+			]
+		},
+		"distribute": {
+			"display_name": "Distribute",
+			"options": [
+				"True",
+				"False"
+			]
+		}
+	}
+}
